@@ -1,0 +1,37 @@
+{
+  "name": "juicepress",
+  "version": "1.0.0",
+  "description": "Super simple static blog generator",
+  "homepage": "https://trenker.github.com/juicepress",
+  "bugs": {
+    "url": "https://github.com/trenker/juicepress/issues",
+    "email": "contact@grossberger-ge.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trenker/juicepress.git"
+  },
+  "author": "Georg Grossberger <contact@grossberger-ge.org> (http://grossberger-ge.org)",
+  "license": "MIT",
+  "main": "./src/juicepress.js",
+  "dependencies": {
+    "async": "0.9.*",
+    "glob": "4.0.*",
+    "handlebars": "2.0.*",
+    "js-yaml": "^3.1.0",
+    "marked": "^0.3.2",
+    "merge": "^1.1.3",
+    "minimize": "^0.7.7",
+    "mkdirp": "0.5.*",
+    "stringex": "^0.2.4"
+  },
+  "keywords": [
+    "static",
+    "blog",
+    "generator",
+    "grunt",
+    "gulp",
+    "handlebars",
+    "markdown"
+  ]
+}
