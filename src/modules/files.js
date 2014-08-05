@@ -85,16 +85,29 @@ module.exports = function(posts, options, callback) {
 
 			index.push({
 				target: createUrlFromElements(target),
+				paging: {
+					current: i + 1,
+					count: count
+				},
 				elements: pagePosts
 			});
 		}
 	} else {
 		index.push({
 			target: "index",
+			paging: {
+				current: 1,
+				count: 1
+			},
 			elements: pages
 		});
 	}
 
+	index.forEach(function(indexPage) {
+		indexPage.paging.urls = index.map(function(i) {
+			return i.target;
+		});
+	});
 	var categories = [];
 
 	pages.forEach(function(page) {
