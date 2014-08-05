@@ -1,6 +1,6 @@
 {
   "name": "juicepress",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Super simple static blog generator",
   "homepage": "https://trenker.github.com/juicepress",
   "bugs": {
