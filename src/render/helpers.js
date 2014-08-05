@@ -8,23 +8,26 @@
 module.exports = function(Handlebars, options, posts) {
 
 	function linkToPage(page, base) {
-		var url = "";
-		var to = page;
+		var url = page;
+		var base = trim(base || options.baseUrl);
 
 		if (page.target) {
-			to = page.target;
+			url = page.target;
 		}
 
-		return trim(base || options.baseUrl) + trim(to) + ".html";
+		url = trim(url);
+
+		if (url !== "index") {
+			url = base + url + ".html";
+		} else {
+			url = base;
+		}
+		return url;
 	}
 
 	function trim(val) {
 		return val.toString().trim();
 	}
-
-	Handlebars.registerHelper("raw", function(str) {
-		return str + "";
-	});
 
 	Handlebars.registerHelper("obfuscate", function(str) {
 		if (!str || !str.length) {
