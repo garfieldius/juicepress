@@ -46,7 +46,6 @@ module.exports = function(Handlebars, options, posts) {
 	Handlebars.registerHelper("link_page", function(page) {
 		return linkToPage(page, this.baseUrl);
 	});
-
 	Handlebars.registerHelper("link_post", function(name) {
 		var len = posts.length;
 
@@ -61,6 +60,16 @@ module.exports = function(Handlebars, options, posts) {
 				return linkToPage(target);
 			}
 		}
+	});
+
+	Handlebars.registerHelper("link_tag", function(tag) {
+		var toUrl = require("../util/translit.js").urlSafe;
+		return linkToPage(options.tagPagePrefix + toUrl(tag));
+	});
+
+	Handlebars.registerHelper("link_category", function(tag) {
+		var toUrl = require("../util/translit.js").urlSafe;
+		return linkToPage(options.categoryPagePrefix + toUrl(tag));
 	});
 
 	Handlebars.registerHelper("paging", function() {
