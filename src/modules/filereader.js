@@ -49,7 +49,6 @@ module.exports = function(file, cb) {
 
 		cb(null, {
 			from: file.from,
-			to: file.to,
 			yfm: yfm,
 			post: content
 		});

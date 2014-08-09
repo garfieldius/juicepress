@@ -122,7 +122,5 @@ module.exports = function(options, pages, callback) {
 	xml += "\n\
 </urlset>";
 
-	var writeFile = require("../util/writeFile.js");
-	writeFile(options.buildDirectory + options.sitemap.target, xml, callback);
-
+	callback(null, {file: options.sitemap.target, content: xml});
 };

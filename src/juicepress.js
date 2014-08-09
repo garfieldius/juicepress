@@ -39,6 +39,8 @@ module.exports = function(options, files, callback) {
 		},
 	};
 
+	var resultingFiles = [];
+
 	options = merge({}, defaultOptions, options);
 
 	// Read post files
@@ -81,15 +83,29 @@ module.exports = function(options, files, callback) {
 					pages.map(function(page) {
 						return function(cb) {
 							var renderer = require("./render/page.js");
-							renderer(page, result, options, result.handlebars, cb);
+							renderer(page, result, options, result.handlebars, function(err, fileData) {
+								if (err) {
+									cb(err);
+								} else {
+									resultingFiles.push(fileData);
+									cb(null)
+								}
+							});
 						}
 					}),
-					function(err, info) {
+					function(err) {
 						if (options.generateSitemap && !err) {
 							var sitemap = require("./render/sitemap.js");
-							sitemap(options, pages, callback);
+							sitemap(options, pages, function(err, fileData) {
+								if (err) {
+									callback(err);
+								} else {
+									resultingFiles.push(fileData);
+									callback(null);
+								}
+							});
 						} else {
-							callback(err, info)
+							callback(err || null);
 						}
 					}
 				)
@@ -99,6 +115,6 @@ module.exports = function(options, files, callback) {
 
 
 	async.waterfall(steps, function(err, result) {
-		callback(err, result);
+		callback(err, resultingFiles);
 	});
 };

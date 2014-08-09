@@ -7,7 +7,6 @@
 
 var marked = require("marked");
 var merge = require("merge");
-var writeFile = require("../util/writeFile.js");
 var minimizer;
 
 module.exports = function(page, data, options, handlebars, cb) {
@@ -28,14 +27,7 @@ module.exports = function(page, data, options, handlebars, cb) {
 	}
 
 	var template = data.layouts[layout] || data.layouts[options.defaultLayout] || data.layouts["default"];
-
-	var parts = page.target.split("/");
-	var buildDir = options.buildDirectory;
-	if (buildDir.substr(-1) != "/") {
-		buildDir += "/";
-	}
-
-	var targetFile = buildDir + page.target + ".html";
+	var targetFile = page.target + ".html";
 	var content = template(context).toString();
 
 	if (options.minimize) {
@@ -47,10 +39,10 @@ module.exports = function(page, data, options, handlebars, cb) {
 			if (err) {
 				cb(err);
 			} else {
-				writeFile(targetFile, data, cb);
+				cb(null, {file: targetFile, content: content});
 			}
 		});
 	} else {
-		writeFile(targetFile, content, cb);
+		cb(null, {file: targetFile, content: content});
 	}
 };
