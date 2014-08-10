@@ -1,6 +1,6 @@
 {
   "name": "juicepress",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Super simple static blog generator",
   "homepage": "https://trenker.github.com/juicepress",
   "bugs": {
@@ -28,36 +28,5 @@
     "merge": "^1.1.3",
     "minimize": "^0.7.7",
     "stringex": "^0.2.4"
-  },
-  "keywords": [
-    "static",
-    "blog",
-    "generator",
-    "grunt",
-    "gulp",
-    "handlebars",
-    "markdown"
-  ],
-  "gitHead": "92502bf488efd359c7fbbcbbb080eb8bc953f608",
-  "_id": "juicepress@1.0.3",
-  "scripts": {},
-  "_shasum": "8a67016b3fe3d55d0ed46e806c8b7b48d2a4b5c0",
-  "_from": "juicepress@1.0.*",
-  "_npmVersion": "1.4.23",
-  "_npmUser": {
-    "name": "garfieldius",
-    "email": "contact@grossberger-ge.org"
-  },
-  "maintainers": [
-    {
-      "name": "garfieldius",
-      "email": "contact@grossberger-ge.org"
-    }
-  ],
-  "dist": {
-    "shasum": "8a67016b3fe3d55d0ed46e806c8b7b48d2a4b5c0",
-    "tarball": "http://registry.npmjs.org/juicepress/-/juicepress-1.0.3.tgz"
-  },
-  "directories": {},
-  "_resolved": "https://registry.npmjs.org/juicepress/-/juicepress-1.0.3.tgz"
+  }
 }
