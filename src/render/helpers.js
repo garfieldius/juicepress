@@ -47,8 +47,12 @@ module.exports = function(Handlebars, options, posts) {
 		return linkToPage(page, this.baseUrl);
 	});
 	Handlebars.registerHelper("link_post", function(name) {
-		var len = posts.length;
 
+		if (typeof name !== "string" || name.length < 1) {
+			throw new Error("Cannot link to an empty post");
+		}
+
+		var len = posts.length;
 		var titleTest = new RegExp(name, 'i');
 		var targetTest = new RegExp(name + '$');
 
