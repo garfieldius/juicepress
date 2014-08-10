@@ -9,12 +9,19 @@ module.exports = function(file, cb) {
 
 	var yaml = require("js-yaml");
 
-	require("fs").readFile(file.from, function(err, src) {
+	if (!file.content) {
+		require("fs").readFile(file.from, function(err, src) {
+			if (err) {
+				cb(err);
+			} else {
+				parseContent(src);
+			}
+		});
+	} else {
+		parseContent(file.content);
+	}
 
-		if (err) {
-			cb(err);
-			return;
-		}
+	function parseContent(src) {
 
 		src = src.toString();
 
@@ -52,5 +59,5 @@ module.exports = function(file, cb) {
 			yfm: yfm,
 			post: content
 		});
-	});
+	}
 };
