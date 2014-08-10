@@ -46,7 +46,7 @@ module.exports = function(page, data, options, handlebars, cb) {
 			if (err) {
 				cb(err);
 			} else {
-				cb(null, {file: targetFile, content: content});
+				cb(null, {file: targetFile, content: data});
 			}
 		});
 	} else {
