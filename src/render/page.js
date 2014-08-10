@@ -5,9 +5,16 @@
  * the terms of the MIT- / X11 - License                                 *
  *                                                                       */
 
-var marked = require("marked");
-var merge = require("merge");
+var marked    = require("marked");
+var merge     = require("merge");
+var highlight = require('highlight.js');
 var minimizer;
+
+marked.setOptions({
+	highlight: function(code) {
+		return highlight.highlightAuto(code).value;
+	}
+});
 
 module.exports = function(page, data, options, handlebars, cb) {
 
