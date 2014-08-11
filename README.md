@@ -6,8 +6,8 @@ Juicepress is a node package that generates a blog of HTML files from markdown s
 
 This requires a plugin for a build tool
 
-* [grunt-contrib-juicepress](https://github.com/trenker/grunt-contrib-juicepress#Installation)
-* [gulp-juicepress](https://github.com/trenker/gulp-juicepress#Installation)
+* [grunt-contrib-juicepress](https://github.com/trenker/grunt-contrib-juicepress#installation)
+* [gulp-juicepress](https://github.com/trenker/gulp-juicepress#installation)
 
 See the readme of this packages to find out, how to install and call it.
 
@@ -40,7 +40,21 @@ All posts are sorted in chronological order with the newest first and the oldest
 
 There must be at least two templates: *default* for posts and *list* for lists. All templates are rendered using handlebars, so you can use all the handlebars options and possibilities.
 
-Additionally all options and YFM settings are available
+Additionally all options and YFM settings are available. Option settings and YFM settings that are not recognized by juicepress, are passed as well.
+
+eg.: in the YFM you can add extended author information like this:
+
+```yaml
+author:
+  name: My Name
+  email: email@author.com
+```
+
+and in the template, you can write it out like this:
+
+```html
+<p class"author">This is a post by <a href="mailto:{{ author.email }}">{{ author.name }}</a></p>
+```
 
 ### Targets
 
@@ -150,21 +164,21 @@ eg.: a target "top/lower/my-post" and the default juicepress options will create
 		<tr>
 			<td>minimize</td>
 			<td>boolean</td>
-			<td>If the generated HTML should be compressed using [minimize](https://github.com/Moveo/minimize)</td>
+			<td>If the generated HTML should be compressed using minimize</td>
 			<td>No</td>
 			<td>true</td>
 		</tr>
 		<tr>
 			<td>minimizeOptions</td>
 			<td>object</td>
-			<td>Options passed to minimize. See [minimize](https://github.com/Moveo/minimize) for a list of available options. If omitted, its default settings are used.</td>
+			<td>Options passed to minimize. If omitted, its default settings are used.</td>
 			<td>No</td>
 			<td>null</td>
 		</tr>
 		<tr>
 			<td>paginationSuffix</td>
 			<td>string</td>
-			<td>The suffix for list pages, higher than one. The placeholder *{{ page }}* will be replaced with the page number. If it starts with a slash (like the default), all pages will be in a subfolder.</td>
+			<td>The suffix for list pages, higher than one. The placeholder {{ page }} will be replaced with the page number. If it starts with a slash (like the default), all pages will be in a subfolder.</td>
 			<td>No</td>
 			<td>"/page-{{ page }}"</td>
 		</tr>
@@ -178,7 +192,7 @@ eg.: a target "top/lower/my-post" and the default juicepress options will create
 		<tr>
 			<td>tagPagePrefix</td>
 			<td>string</td>
-			<td>Same as *categoryPagePrefix*, but for tags.</td>
+			<td>Same as categoryPagePrefix, but for tags.</td>
 			<td>No</td>
 			<td>"/tags"</td>
 		</tr>
@@ -213,14 +227,14 @@ eg.: a target "top/lower/my-post" and the default juicepress options will create
 		<tr>
 			<td>helpers</td>
 			<td>string</td>
-			<td>Globbing pattern for javascript files that are included prior the page rendering. They are expected to export a single function, that receives three arguments (in that order): *Handlebars*: Reference to the handlebars instanced used, *options*: This options, with their settings, *posts*: An array of post page objects. Useful, eg., for adding additional helpers.</td>
+			<td>Globbing pattern for javascript files that are included prior the page rendering. They are expected to export a single function, that receives three arguments (in that order): "Handlebars": Reference to the handlebars instanced used, "options": This options, with their settings, "posts": An array of post page objects. Useful, eg., for adding additional helpers.</td>
 			<td>No</td>
 			<td>"./helpers/**/*.js"</td>
 		</tr>
 		<tr>
 			<td>buildDirectory</td>
 			<td>string</td>
-			<td>Name of the directory to write the files into. Relative to the process.cwd().IMPORTANT: Ignore when building with gulp!!</td>
+			<td>Name of the directory to write the files into. Relative to the process.cwd().IMPORTANT: Ignored when building with gulp!!</td>
 			<td>No</td>
 			<td>"./_build/"</td>
 		</tr>
@@ -236,32 +250,34 @@ eg.: a target "top/lower/my-post" and the default juicepress options will create
 			<td>string</td>
 			<td>The change frequency for the different page types</td>
 			<td>Yes (if generateSitemap is true)</td>
-			<td>yearly* for posts, *monthly* for tag- and category - lists, *weekly* for index - lists</td>
+			<td>"yearly" for posts, "monthly" for tag- and category - lists, "weekly" for index - lists</td>
 		</tr>
 		<tr>
 			<td>sitemap.priority.(index|list|post)</td>
 			<td>float as string</td>
 			<td>The priority settings for the page types</td>
 			<td>Yes (if generateSitemap is true)</td>
-			<td>1.0* for posts, *0.8* for tag- and category - lists, *0.9* for index - lists</td>
+			<td>"1.0* for posts, "0.8" for tag- and category - lists, "0.9" for index - lists</td>
 		</tr>
 		<tr>
 			<td>sitemap.target</td>
 			<td>string</td>
-			<td>The target filename of the sitemap file. Relative to *buildDirectory</td>
+			<td>The target filename of the sitemap file. Relative to the buildDirectory setting (grunt) or the cwd (gulp)</td>
 			<td>Yes (if generateSitemap is true)</td>
-			<td>sitemap.xml</td>
+			<td>"sitemap.xml"</td>
 		</tr>
 	</tbody>
 </table>
 
+For a full list of options for the setting *minimizeOptions*, please go to <https://github.com/Moveo/minimize>
+
+The markdown renderer uses [highlight.js](https://highlightjs.org/) for fenced code blocks. If you have code in your post, please add a stylesheet for propper display in the browser.
+
 ## Todo
 
 * Drafts
-* Extended docs
 * Multi Language Support
 * Direct invocation
-* A gulp plugin
 * Unit tests (Yes, I know it should already have those)
 
 ## License
