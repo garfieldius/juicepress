@@ -35,6 +35,10 @@ module.exports = function(page, data, options, handlebars, cb) {
 
 	var template = data.layouts[layout] || data.layouts[options.defaultLayout] || data.layouts["default"];
 	var targetFile = page.target + ".html";
+
+	context.filename  = targetFile;
+	context.canonical = options.baseUrl + targetFile;
+
 	var content = template(context).toString();
 
 	if (options.minimize) {
