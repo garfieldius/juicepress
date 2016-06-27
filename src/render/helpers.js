@@ -6,6 +6,7 @@
  *                                                                       */
 
 module.exports = function(Handlebars, options, posts) {
+	var toUrl = require("../util/translit.js").urlSafe;
 
 	function linkToPage(page, base) {
 		var url = page;
@@ -47,7 +48,6 @@ module.exports = function(Handlebars, options, posts) {
 		return linkToPage(page, this.baseUrl);
 	});
 	Handlebars.registerHelper("link_post", function(name) {
-
 		if (typeof name !== "string" || name.length < 1) {
 			throw new Error("Cannot link to an empty post");
 		}
@@ -57,7 +57,11 @@ module.exports = function(Handlebars, options, posts) {
 		var targetTest = new RegExp(name + '$');
 
 		while (len--) {
-			var title = posts[len].data.title;
+			if (!(posts[len].title || posts[len].data)) {
+				continue;
+			}
+
+			var title = posts[len].title || posts[len].data.title;
 			var target = posts[len].target;
 
 			if (titleTest.test(title) || targetTest.test(target)) {
@@ -67,12 +71,10 @@ module.exports = function(Handlebars, options, posts) {
 	});
 
 	Handlebars.registerHelper("link_tag", function(tag) {
-		var toUrl = require("../util/translit.js").urlSafe;
 		return linkToPage(options.tagPagePrefix + toUrl(tag));
 	});
 
 	Handlebars.registerHelper("link_category", function(tag) {
-		var toUrl = require("../util/translit.js").urlSafe;
 		return linkToPage(options.categoryPagePrefix + toUrl(tag));
 	});
 
@@ -95,9 +97,9 @@ module.exports = function(Handlebars, options, posts) {
 			var next = current + 1;
 
 			if (paging.urls[prev]) {
-				html += '<li><a href="' + link(prev) + '">&laquo;</a></li>';
+				html += '<li><a href="' + link(prev) + '">«</a></li>';
 			} else {
-				html += '<li class="disabled"><span>&laquo;</span></li>';
+				html += '<li class="disabled"><span>«</span></li>';
 			}
 
 			for (var p = 0; p < paging.count; p++) {
@@ -109,9 +111,9 @@ module.exports = function(Handlebars, options, posts) {
 			}
 
 			if (paging.urls[next]) {
-				html += '<li><a href="' + link(next) + '">&raquo;</a></li>';
+				html += '<li><a href="' + link(next) + '">»</a></li>';
 			} else {
-				html += '<li class="disabled"><span>&raquo;</span></li>';
+				html += '<li class="disabled"><span>»</span></li>';
 			}
 
 			html += "</ul>";

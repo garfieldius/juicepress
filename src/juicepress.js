@@ -75,7 +75,7 @@ module.exports = function(options, files, callback) {
 
 		delete data.all;
 
-		loadEngine(options, data.posts, function(err, result) {
+		loadEngine(options, pages, function(err, result) {
 			if (err) {
 				callback(err);
 			} else {
